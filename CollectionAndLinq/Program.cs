@@ -28,22 +28,26 @@ Console.WriteLine("Hello, World!");
 
 
 
-////Dictionary
-////POJO
+////Dictionary - C# collection of KeyValuePair
+////POJO - plain old javascript object
 ///*
-// * {
+// * const obj = {
 // *  name: "Brian",
 // *  title: "Instructor",
 // *  cohort: 30
 // * }
+// * access your object's properties with square bracket notation or dot notation
 // * obj["name"], obj.name
 // * 
+// * var dict = new Dictionary<string, string>()
 // * {
-// *  1: "One"
-// *  2: "Two"
+// *  "name": "Brian"
+// *  "title": "Instructor"
+// *  "cohort": "C30"
 // *  
-// * }
-// * dict[1]
+// * };
+// * access items with square bracket notation
+// * dict[]
 // */
 
 //var dict = new Dictionary<int, string>();
@@ -59,6 +63,11 @@ Console.WriteLine("Hello, World!");
 //{
 //    Console.WriteLine($"Key: {kvp.Key}  Value: {kvp.Value}");
 //}
+
+
+
+
+
 
 var cars = new List<Car>();
 
@@ -100,12 +109,39 @@ foreach (Car car in cars)
     }
 }
 
-    foreach (var item in hash)
-    {
-        Console.WriteLine($"{item.Key}, {item.Value}");
-    }
+foreach (KeyValuePair<string, int> kvp in hash)
+{
+    Console.WriteLine($"{kvp.Key}, {kvp.Value}");
+}
 
-    foreach (var item in moreComplexHash)
-    {
-        Console.WriteLine($"{item.Key}, {item.Value.Count}");
-    }
+foreach (KeyValuePair<string, List<Car>> kvp in moreComplexHash)
+{
+    Console.WriteLine($"{kvp.Key}, {kvp.Value.Count}");
+}
+
+/******************** RANDOM SQUARES EXERCISE *********************
+ *
+ * 1. Using the `Random` class, generate a list of 20 random numbers that are in the range of 1-50.
+ * 2. With the resulting List, populate a new List that contains each number squared.
+ *    For example, if the original list is `2, 5, 3, 15`, the final list will be `4, 25, 9, 225`.
+ * 3. Then remove any number that is odd from the list of squared numbers.
+ */
+
+// 1. Using the `Random` class, generate a list of 20 random numbers that are in the range of 1-50.
+var rand = new Random();
+var numbers = new List<int>();
+for (int i = 0; i < 20; i++)
+{
+    numbers.Add(rand.Next(1, 50));
+}
+
+// 2. With the resulting List, populate a new List that contains each number squared.
+var squaredNumbers = numbers.Select(n => n * n);
+
+// 3.Then remove any number that is odd from the list of squared numbers.
+var evensOnly = squaredNumbers.Where(n => n % 2 == 0);
+
+/***************** 
+ * 
+ */
+
