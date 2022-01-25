@@ -98,11 +98,11 @@ foreach (Car car in cars)
     }
 
 
-    if (moreComplexHash.ContainsKey(car.Make))
+    if (moreComplexHash.ContainsKey(car.Make)) //if the key already exists ("Toyota") the just add the car to the collection
     {
         moreComplexHash[car.Make].Add(car);
     }
-    else
+    else  //the key doesn't exist yet, so it's the first car of that Make. Add the key along with a new List for its value
     {
         moreComplexHash.Add(car.Make, new List<Car>());
         moreComplexHash[car.Make].Add(car);
@@ -136,9 +136,11 @@ for (int i = 0; i < 20; i++)
 }
 
 // 2. With the resulting List, populate a new List that contains each number squared.
+// .Select is like .map in javascript, it will iterate the entire collection and return a collection of the same length, applying your code to each item
 var squaredNumbers = numbers.Select(n => n * n);
 
 // 3.Then remove any number that is odd from the list of squared numbers.
+// .Where is like .filter in javascript, it will return a collection containing items that meet the defined condition
 var evensOnly = squaredNumbers.Where(n => n % 2 == 0);
 
 /***************** 
