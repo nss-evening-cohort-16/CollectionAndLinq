@@ -69,17 +69,21 @@ cars.Add(new Car("Ford", "F150", 2020));
 cars.Add(new Car("Ford", "Taurus", 2001));
 cars.Add(new Car("Tesla", "X", 2022));
 
+
+//the key is the car Make and the value is how many we've counted so far
 var hash = new Dictionary<string, int>();
+
+//the key is the car Make and the value is a collection of cars of that Make
 var moreComplexHash = new Dictionary<string, List<Car>>();
 
 foreach (Car car in cars)
 {
     //hashmap
-    if (hash.ContainsKey(car.Make))
+    if (hash.ContainsKey(car.Make)) //if the key already exists ("Toyota") then just add 1 to the counter for that key
     {
         hash[car.Make]++;
     }
-    else
+    else //the key doesn't exist yet, so it's the first car of that Make, add the key with a count value of 1
     {
         hash.Add(car.Make, 1);
     }
