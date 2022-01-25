@@ -1,7 +1,7 @@
 ﻿using CollectionAndLinq;
 
 // See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+//Console.WriteLine("Hello, World!");
 
 //create an instance of a new blank list
 //List<int> listOfIntegers = new List<int>();
@@ -65,9 +65,7 @@ Console.WriteLine("Hello, World!");
 //}
 
 
-
-
-
+// examples of using List and Dictionary for hashmap lookup *************************
 
 var cars = new List<Car>();
 
@@ -98,26 +96,38 @@ foreach (Car car in cars)
     }
 
 
-    if (moreComplexHash.ContainsKey(car.Make)) //if the key already exists ("Toyota") the just add the car to the collection
+    if (moreComplexHash.ContainsKey(car.Make)) //if the key already exists ("Toyota") then just add the car to the collection
     {
         moreComplexHash[car.Make].Add(car);
     }
-    else  //the key doesn't exist yet, so it's the first car of that Make. Add the key along with a new List for its value
+    else  //the key doesn't exist yet, so it's the first car of that Make. Add the key along with a new List containing the car for its value
     {
-        moreComplexHash.Add(car.Make, new List<Car>());
-        moreComplexHash[car.Make].Add(car);
+        moreComplexHash.Add(car.Make, new List<Car> { car });
     }
 }
 
+Console.WriteLine("Simpler hash *************");
 foreach (KeyValuePair<string, int> kvp in hash)
 {
     Console.WriteLine($"{kvp.Key}, {kvp.Value}");
 }
+Console.WriteLine();
+Console.WriteLine();
 
+Console.WriteLine("More complex hash *************");
 foreach (KeyValuePair<string, List<Car>> kvp in moreComplexHash)
 {
     Console.WriteLine($"{kvp.Key}, {kvp.Value.Count}");
 }
+Console.WriteLine();
+Console.WriteLine();
+
+
+
+
+
+
+
 
 /******************** RANDOM SQUARES EXERCISE *********************
  *
@@ -143,7 +153,77 @@ var squaredNumbers = numbers.Select(n => n * n);
 // .Where is like .filter in javascript, it will return a collection containing items that meet the defined condition
 var evensOnly = squaredNumbers.Where(n => n % 2 == 0);
 
-/***************** 
- * 
- */
+
+
+
+
+
+
+
+
+
+
+// **************************** PLANETS & SPACECRAFT EXERCISE
+Console.WriteLine("***** PLANETS *****");
+
+List<string> planetList = new List<string>() { "Mercury", "Mars" };
+Console.WriteLine($"Starting planets: {string.Join(", ", planetList)}");
+
+// 1. `Add()` Jupiter and Saturn at the end of the list.
+planetList.Add("Jupiter");
+planetList.Add("Saturn");
+Console.WriteLine($"Added two: {string.Join(", ", planetList)}");
+
+// 2. Create another `List` that contains that last two planet of our solar system.
+List<string> remainingPlanets = new List<string> { "Uranus", "Neptune" };
+Console.WriteLine($"Final two: {string.Join(", ", remainingPlanets)}");
+
+// 3. Combine the two lists by using `AddRange()`.
+planetList.AddRange(remainingPlanets);
+Console.WriteLine($"Combined: {string.Join(", ", planetList)}");
+
+// 4. Use `Insert()` to add Earth, and Venus in the correct order.
+planetList.Insert(1, "Venus");
+planetList.Insert(2, "Earth");
+Console.WriteLine($"Added Venus and Earth: {string.Join(", ", planetList)}");
+
+// 5. Use `Add()` again to add Pluto to the end of the list.
+planetList.Add("Pluto");
+Console.WriteLine($"Added Pluto: {string.Join(", ", planetList)}");
+
+// 6. Now that all the planets are in the list, slice the list using `GetRange()` in order to extract the rocky planets into a new list called `rockyPlanets`.
+List<string> rockyPlanets = planetList.GetRange(0, 4);
+Console.WriteLine($"Rocky planets: {string.Join(", ", rockyPlanets)}");
+
+// 7. Being good amateur astronomers, we know that Pluto is now a dwarf planet, so use the `Remove()` method to eliminate it from the end of `planetList`.
+planetList.Remove("Pluto");
+Console.WriteLine($"Removed Pluto: {string.Join(", ", planetList)}");
+
+// 1. Create a dictionary that will hold the name of a spacecraft
+//    that we have launched, and a list of names of the planets that it has
+//    visited. Remember that `List` is a Type just like native types (such as `string`, `int`, & `bool`) and your custom types (such as `Movie`, `Dog`, and `Food`).
+//    These types can be passed to anything, like a dictionary.
+Dictionary<string, List<string>> spacecraftVisits = new Dictionary<string, List<string>>()
+{
+    { "Mercury", new List<string>{"Mariner 10", "MESSENGER"} },
+    { "Venus", new List<string>{"Mariner 2", "Mariner 5", "Venera 5-16", "Magellan" } },
+    { "Earth", new List<string>{"Mariner 10", "Pioneer 10", "Pioneer 11", "Voyager 1", "Voyager 2" } },
+    { "Mars", new List<string>{ "Mariner 9", "Viking 1", "Viking 2", "Pathfinder", "Spirit", "Opportunity", "Perseverance"} },
+    { "Jupiter", new List<string>{ "Voyager 1", "Voyager 2"} },
+    { "Saturn", new List<string> { "Pioneer 11", "Voyager 1", "Voyager 2", "Cassini"} },
+    { "Uranus", new List<string> { "Voyager 2"} },
+    { "Neptune", new List<string> { "Voyager 2"} }
+};
+
+
+// 2. Iterate over your list of planets from above, and inside that loop,
+//    iterate over the dictionary. Write to the console, for each planet,
+//    which satellites have visited which planet.
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine("***** SPACECRAFT *****");
+planetList.ForEach(p =>
+{
+    Console.WriteLine($"{p} has been visited by: {string.Join(", ", spacecraftVisits[p])}");
+});
 
